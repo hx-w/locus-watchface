@@ -1,17 +1,15 @@
 import Toybox.Lang;
 
-// Geometry only: observations remain unchanged. Separate runs never form a face.
+// Geometry only: run on the same interpolated path used for the visible stroke.
 class TrailTopology {
     var loops as Array<Array<Array<Numeric>>> = [];
     var crossings as Array<Array<Numeric>> = [];
     function initialize(rows as Array<Array<Numeric>>) {
         if (rows.size() == 0) { return; }
         var path = [[rows[0][0], rows[0][1]]] as Array<Array<Numeric>>;
-        var previousTime = rows[0][2].toNumber();
         for (var i = 1; i < rows.size(); i += 1) {
             var row = rows[i]; var target = [row[0], row[1]];
-            if (row[2] - previousTime > HistoryPolicy.MAX_GAP) { path = [target]; }
-            else if (distance(path[path.size() - 1], target) > 0.0001) {
+            if (distance(path[path.size() - 1], target) > 0.0001) {
                 // Erase completed loops from the working path, giving simple faces.
                 var finished = false;
                 while (!finished && crossings.size() < 12) {
@@ -51,7 +49,6 @@ class TrailTopology {
                 }
                 if (distance(path[path.size() - 1], target) > 0.0001) { path.add(target); }
             }
-            previousTime = row[2].toNumber();
         }
     }
     static function distance(a as Array<Numeric>, b as Array<Numeric>) as Numeric {

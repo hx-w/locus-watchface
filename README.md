@@ -9,7 +9,7 @@ Built in Monkey C for Forerunner and fēnix watches, with AMOLED and MIP display
 </p>
 
 Warm ivory hours, golden minutes, and a flat coral heart keep the current moment in focus.
-A fine trajectory fades from the accent color toward the current point, with sparse observation
+A bold interpolating B-spline runs from the accent color toward the current point, with sparse observation
 marks, subtle closed-region fills, and highlighted intersections. Weekday and date sit above
 the time; device battery sits at the bottom. Screenshots use illustrative values rendered in the official simulator.
 
@@ -81,8 +81,11 @@ from other devices or deleted history may be absent even when present in Garmin 
 There is no network service or account.
 Trajectory observations are stored locally, bounded to 73 samples over six hours. They are
 collected during normal active updates, at most once every five minutes. AMOLED low-power mode
-does not sample athlete data. Gaps longer than 15 minutes remain disconnected, so this is an observed
-history rather than guaranteed continuous background monitoring.
+does not sample athlete data. A continuous cubic B-spline joins available observations, including
+before and after activities, and reaches the current point. The curve is a visual interpolation;
+it does not add recorded measurements or imply continuous background monitoring. Stationary
+observations share a curve knot, and the curve stays inside the chart. Step counts include a
+localized unit, `steps` or `步`, alongside their compact numeric value.
 
 Supported device profiles are declared once in `manifest.xml`; both build and test commands
 read that list. `python3 scripts/test.py` verifies every declared profile serially.

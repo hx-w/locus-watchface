@@ -92,6 +92,10 @@ function fieldValidationAndUnits(logger as Test.Logger) as Boolean {
     Test.assertEqual(Fields.format(4, s, false), "24.8");
     Test.assertEqual(Fields.unit(4, true), "mi");
     Test.assertEqual(Fields.format(6, s, false), "8.2k");
+    Test.assert(Fields.unit(6, false).length() > 0);
+    Test.assertEqual(Fields.unit(6, false), Fields.unit(6, true));
+    s.values[6] = 42;
+    Test.assertEqual(Fields.format(6, s, false), "42");
     s.values[3] = 101; Test.assertEqual(Fields.format(3, s, false), "--");
     Test.assertEqual(Fields.format(0, s, false), "");
     return true;

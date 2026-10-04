@@ -76,21 +76,18 @@ class LocusRenderer {
                 281 - 147 * ChartAxes.convert(yid, observation[2], cfg.miles) / ymax, observation[0]]);
         }
         if (xv != null && yv != null) { geometry.add([px, py, s.stamp]); }
-        var topology = new TrailTopology(geometry);
+        var curve = new TrailCurve(geometry).points;
+        // Interpolated excursions stay inside the plotted metric range.
+        for (var c = 0; c < curve.size(); c += 1) {
+            curve[c] = [ChartAxes.max(61, ChartAxes.min(325, curve[c][0])),
+                ChartAxes.max(134, ChartAxes.min(281, curve[c][1])), curve[c][2]];
+        }
+        var topology = new TrailTopology(curve);
         for (var face = 0; face < topology.loops.size(); face += 1) {
             canvas.polygon(dc, topology.loops[face], tint(cfg.color(), canvas.mip ? 0.30 : 0.14));
         }
         dashed(dc, 61, 207.5, 325, 207.5, Palette.TRACK);
         dashed(dc, 193, 142, 193, 281, Palette.TRACK);
-        trail(dc, s, cfg, xmax, ymax);
-        var pointClearance = (cfg.fields[0] == 1 ? NativeIcons.heartSize(s.get(1)) / 2.0 : 10) + 6;
-        for (var node = 0; node < topology.crossings.size(); node += 1) {
-            var crossing = topology.crossings[node];
-            if (xv == null || yv == null || TrailTopology.distance(crossing, [px, py]) > pointClearance * pointClearance) {
-                canvas.ring(dc, crossing[0], crossing[1], 3, cfg.color());
-                canvas.circle(dc, crossing[0], crossing[1], 0.8, Palette.INK);
-            }
-        }
         canvas.line(dc, 61, 286, 61, 124, Palette.INK, 1.5);
         canvas.line(dc, 56, 281, 338, 281, Palette.INK, 1.5);
         canvas.polygon(dc, [[61,121],[57,129],[65,129]], Palette.INK);
@@ -118,21 +115,24 @@ class LocusRenderer {
         if (xv != null && yv != null) {
             dashed(dc, 61, py, px, py, 0x76736C);
             dashed(dc, px, py, px, 281, 0x76736C);
-            // Do not mask the endpoint: the historical line must reach the icon.
-            if (s.trail.size() > 0) {
-                var last = s.trail[s.trail.size() - 1];
-                if (s.stamp - last[0] <= HistoryPolicy.MAX_GAP) {
-                    var lx = 61 + 264 * ChartAxes.convert(xid, last[1], cfg.miles) / xmax;
-                    var ly = 281 - 147 * ChartAxes.convert(yid, last[2], cfg.miles) / ymax;
-                    segment(dc, cfg, lx, ly, last[0], px, py, s.stamp, s.stamp);
-                }
+        }
+        trail(dc, s, cfg, xmax, ymax, curve);
+        var pointClearance = (cfg.fields[0] == 1 ? NativeIcons.heartSize(s.get(1)) / 2.0 : 10) + 6;
+        for (var node = 0; node < topology.crossings.size(); node += 1) {
+            var crossing = topology.crossings[node];
+            if (xv == null || yv == null || TrailTopology.distance(crossing, [px, py]) > pointClearance * pointClearance) {
+                canvas.ring(dc, crossing[0], crossing[1], 3, cfg.color());
+                canvas.circle(dc, crossing[0], crossing[1], 0.8, Palette.INK);
             }
+        }
+        if (xv != null && yv != null) {
             if (id == 0) { canvas.circle(dc, px, py, 5, cfg.color()); }
             else { _icons.draw(canvas, dc, id, px, py, cfg.color(), pointSize); }
         }
         if (id != 0) {
             var value = Fields.format(id, s, cfg.miles);
-            var label = Fields.LABELS[id] + " " + value + (value.equals("--") ? "" : Fields.unit(id, cfg.miles));
+            var unit = value.equals("--") ? "" : Fields.unit(id, cfg.miles);
+            var label = id == 6 ? value + (unit.length() > 0 ? " " + unit : "") : Fields.LABELS[id] + " " + value + unit;
             var width = ChartAxes.min(92, dc.getTextWidthInPixels(label, canvas.font(18)) / canvas.scale);
             var hasPoint = xv != null && yv != null;
             var gap = pointSize / 2 + 8;
@@ -148,7 +148,7 @@ class LocusRenderer {
         // Old observations echo the accent; recent observations approach the point color.
         var start = cfg.color();
         var finish = cfg.fields[0] == 1 ? Palette.HEART : cfg.color();
-        var fade = canvas.mip ? 0.65 + 0.35 * recent : 0.40 + 0.60 * recent;
+        var fade = canvas.mip ? 0.85 + 0.15 * recent : 0.72 + 0.28 * recent;
         var red = Math.round((((start >> 16) & 255) * (1 - recent) + ((finish >> 16) & 255) * recent) * fade).toNumber();
         var green = Math.round((((start >> 8) & 255) * (1 - recent) + ((finish >> 8) & 255) * recent) * fade).toNumber();
         var blue = Math.round(((start & 255) * (1 - recent) + (finish & 255) * recent) * fade).toNumber();
@@ -171,13 +171,18 @@ class LocusRenderer {
             var x = x1 + dx * part; var y = y1 + dy * part;
             var age = stamp - (t1 + (t2 - t1) * part);
             var color = trailColor(cfg, age);
-            // A uniform fine stroke reads as measured data, rather than a comet.
-            canvas.line(dc, lastX, lastY, x, y, color, 1.5);
+            // At least two physical pixels on small MIP screens, three on FR265.
+            var width = ChartAxes.max(3.2, 2.0 / canvas.scale);
+            canvas.line(dc, lastX, lastY, x, y, color, width);
             lastX = x; lastY = y;
         }
     }
-    private function trail(dc as Graphics.Dc, s as AthleteSnapshot, cfg as LocusSettings, xmax as Numeric, ymax as Numeric) as Void {
-        var prevX = 0.0; var prevY = 0.0; var prevTime = 0;
+    private function trail(dc as Graphics.Dc, s as AthleteSnapshot, cfg as LocusSettings, xmax as Numeric, ymax as Numeric,
+        curve as Array<Array<Numeric>>) as Void {
+        for (var edge = 1; edge < curve.size(); edge += 1) {
+            var a = curve[edge - 1]; var b = curve[edge];
+            segment(dc, cfg, a[0], a[1], a[2], b[0], b[1], b[2], s.stamp);
+        }
         var markedTime = 0; var markedX = 0.0; var markedY = 0.0;
         var nowX = ChartAxes.value(cfg.fields[1], s, cfg.miles);
         var nowY = ChartAxes.value(cfg.fields[2], s, cfg.miles);
@@ -189,19 +194,14 @@ class LocusRenderer {
             var x = 61 + 264 * ChartAxes.convert(cfg.fields[1], row[1], cfg.miles) / xmax;
             var y = 281 - 147 * ChartAxes.convert(cfg.fields[2], row[2], cfg.miles) / ymax;
             var age = s.stamp - row[0];
-            if (i > 0 && row[0] - prevTime <= HistoryPolicy.MAX_GAP) { segment(dc, cfg, prevX, prevY, prevTime, x, y, row[0], s.stamp); }
-            // Sparse open observation marks, not a dot at every five-minute row.
+            // Sparse high-contrast observation marks remain visible at arm's length.
             var awayFromPoint = (x - markerX) * (x - markerX) + (y - markerY) * (y - markerY) > clearance * clearance;
-            if (awayFromPoint && (i == 0 || row[0] - prevTime > HistoryPolicy.MAX_GAP ||
+            if (awayFromPoint && (i == 0 ||
                 (row[0] - markedTime >= 90 && (x - markedX) * (x - markedX) + (y - markedY) * (y - markedY) >= 144))) {
-                canvas.ring(dc, x, y, 1.6, trailColor(cfg, age));
+                canvas.circle(dc, x, y, 3.6, Palette.INK);
+                canvas.circle(dc, x, y, 2.0, trailColor(cfg, age));
                 markedTime = row[0].toNumber(); markedX = x; markedY = y;
             }
-            prevX = x; prevY = y; prevTime = row[0].toNumber();
-        }
-        if (s.trail.size() > 0 && cfg.fields[1] != 0 && cfg.fields[2] != 0 && s.stamp - prevTime <= HistoryPolicy.MAX_GAP) {
-            var x = ChartAxes.value(cfg.fields[1], s, cfg.miles); var y = ChartAxes.value(cfg.fields[2], s, cfg.miles);
-            if (x != null && y != null) { segment(dc, cfg, prevX, prevY, prevTime, 61 + 264 * x / xmax, 281 - 147 * y / ymax, s.stamp, s.stamp); }
         }
         if (s.trail.size() > 1) {
             var first = s.trail[0];
@@ -226,7 +226,7 @@ class LocusRenderer {
         _icons.draw(canvas, dc, id, x, 326, cfg.color(), 34);
         var value = Fields.format(id, s, cfg.miles);
         var unit = value.equals("--") ? "" : Fields.unit(id, cfg.miles);
-        if (unit.length() > 0) { canvas.valueUnit(dc, x, 360, value, unit, 30, 16, 72); }
+        if (unit.length() > 0) { canvas.valueUnit(dc, x, 360, value, unit, 30, 18, 72); }
         else { canvas.text(dc, x, 360, 30, value, Palette.INK, 72); }
     }
 }

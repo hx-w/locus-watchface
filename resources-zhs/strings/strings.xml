@@ -31,6 +31,7 @@
   <string id="MonthlyRun">本月跑步距离</string>
   <string id="MonthlyBike">本月骑行距离</string>
   <string id="Steps">今日步数</string>
+  <string id="StepUnit">步</string>
   <string id="DeviceBattery">设备电量</string>
   <string id="Stress">压力</string>
   <string id="PulseOx">血氧</string>

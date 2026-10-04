@@ -59,6 +59,10 @@ function chartFieldsAndHistoryBounds(logger as Test.Logger) as Boolean {
     renderer.canvas.failures = [];
     renderer.render(dc, demo, cfg, 10, 8, date, false);
     Test.assertMessage(renderer.canvas.failures.size() == 0, "Full 73-point closed trace and crossing stress scene");
+    demo.trail = [[640,30,40],[645,70,80],[800,30,80],[990,70,40]];
+    renderer.canvas.failures = [];
+    renderer.render(dc, demo, cfg, 10, 8, date, false);
+    Test.assertMessage(renderer.canvas.failures.size() == 0, "Before/after activity observations render as one continuous spline");
     // Low power must not prepare the Canvas or cache vector fonts, even cold.
     renderer = new LocusRenderer();
     for (var minute = 0; minute < 4; minute += 1) { renderer.render(dc, new AthleteSnapshot(), cfg, 23, minute, date, true); }
@@ -68,7 +72,7 @@ function chartFieldsAndHistoryBounds(logger as Test.Logger) as Boolean {
 }
 
 (:test)
-function trailTopologyClosedFacesAndGaps(logger as Test.Logger) as Boolean {
+function trailTopologyClosedFacesAndActivityIntervals(logger as Test.Logger) as Boolean {
     var square = new TrailTopology([[0,0,100],[10,0,105],[10,10,110],[0,10,115],[0,0,120]]);
     Test.assertEqual(square.loops.size(), 1);
     Test.assertEqual(TrailTopology.area(square.loops[0]), 100.0);
@@ -78,7 +82,7 @@ function trailTopologyClosedFacesAndGaps(logger as Test.Logger) as Boolean {
     Test.assertEqual(crossed.crossings[0][0], 5.0);
     Test.assertEqual(TrailTopology.area(crossed.loops[0]), 25.0);
     var gap = new TrailTopology([[0,0,100],[10,10,105],[0,10,200],[10,0,205]]);
-    Test.assertEqual(gap.loops.size(), 0); Test.assertEqual(gap.crossings.size(), 0);
+    Test.assertEqual(gap.loops.size(), 1); Test.assertEqual(gap.crossings.size(), 1);
     var parallel = new TrailTopology([[0,0,100],[10,0,105],[5,0,110],[15,0,115]]);
     Test.assertEqual(parallel.loops.size(), 0);
     var still = new TrailTopology([[2,2,100],[2,2,105],[2,2,110]]);
@@ -126,7 +130,7 @@ function chartHistoryPersistenceAndGaps(logger as Test.Logger) as Boolean {
     s.values[2] = null; history.record(s, cfg, 1010);
     Test.assertEqual(history.points.size(), 2);
     s.values[2] = 900; history.record(s, cfg, 1030);
-    Test.assert(history.points[2][0] - history.points[1][0] > HistoryPolicy.MAX_GAP);
+    Test.assert(history.points[2][0] - history.points[1][0] > HistoryPolicy.INTERVAL);
     // Continuous wake updates are bounded and expire after six hours.
     for (var t = 1035; t <= 1500; t += 5) { history.record(s, cfg, t); }
     Test.assertEqual(history.points.size(), 73);

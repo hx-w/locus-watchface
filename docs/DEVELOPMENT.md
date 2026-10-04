@@ -50,6 +50,7 @@ and [FR265S closed trace](images/fr265s-loops.png). All show illustrative observ
 Tests exercise local calendar-month activity totals, sport filtering, invalid records, metric
 conversions, missing and extreme data, field replacement, property reload,
 display lifecycle on AMOLED and MIP, chart bounds, all six palettes, 73-point trajectories,
+interpolating B-spline endpoints and continuity, activity gaps, stationary knots,
 loop geometry, intersections, history expiry,
 and the cold AOD path. The AOD luminance assertion is a conservative drawing envelope, not a
 hardware power measurement. Test logs and reports stay under ignored `build/`.

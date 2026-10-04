@@ -44,6 +44,7 @@ module Fields {
     }
     function unit(id as Number, miles as Boolean) as String {
         if (id == 4 || id == 5) { return miles ? "mi" : "km"; }
+        if (id == 6) { return WatchUi.loadResource(Rez.Strings.StepUnit) as String; }
         if (id == 9 || id == 7) { return "%"; }
         if (id == 14) { return "m"; }
         return "";

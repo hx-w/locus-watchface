@@ -9,7 +9,6 @@ module HistoryPolicy {
     const WINDOW = 360;
     const INTERVAL = 5;
     const MAX_POINTS = 73;
-    const MAX_GAP = 15;
 }
 
 class ChartHistory {
