@@ -38,6 +38,7 @@ function chartFieldsAndHistoryBounds(logger as Test.Logger) as Boolean {
     for (var accent = 0; accent < 6; accent += 1) {
         cfg.accent = accent; renderer.canvas.failures = [];
         renderer.render(dc, demo, cfg, 10, 8, date, false);
+        for (var failure = 0; failure < renderer.canvas.failures.size(); failure += 1) { logger.error(renderer.canvas.failures[failure]); }
         Test.assertMessage(renderer.canvas.failures.size() == 0, "Locus palettes and DEMO label fit");
     }
     // A self-crossing pressure/body trail, including filled closed faces.

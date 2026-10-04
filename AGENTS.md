@@ -14,7 +14,8 @@ the sole branch. The current coordinate-and-trajectory watch face is the only im
 - Field changes update label, unit, and icon together. Battery marks mean body/device battery;
   heart marks mean heart rate; hourglass marks mean recovery.
 - AMOLED has a separate time-only low-power path. Respect DISPLAY_MODE_OFF and LOW_POWER.
-  Do not load vector fonts or read athlete/history data in AOD.
+  Do not load vector fonts or read athlete/history data in AOD. MIP retains the full chart
+  on minute updates; guard AMOLED-only APIs by capability.
 - `build/`, `bin/`, `private/`, keys, and tokens are excluded from Git. Fixtures live under tests,
   visibly say DEMO, and are isolated from production. Release builds exclude tests and previews.
 - Retain icon provenance and upstream licenses. Keep documentation captures few and current;

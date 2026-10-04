@@ -10,13 +10,20 @@ server, account system, advertising, analytics, or network communication.
 ## Data used on your watch
 
 Depending on your selected fields and available device data, Locus reads native Garmin
-Complications for heart rate, recovery time, Body Battery, weekly running/cycling distance,
+Complications for heart rate, recovery time, Body Battery,
 steps, device battery, stress, Pulse Ox, respiration, running/cycling VO2 max, floors, and weekly
 intensity minutes. These values are used to render your chosen watch-face fields and axes.
 
+For monthly running and cycling totals, the UserProfile permission allows Locus to read the
+start time, sport type, and distance of saved activities exposed on your watch. Activities
+starting in the current local calendar month are summed in meters. Totals are cached in memory
+for up to five minutes and refreshed when returning to the face; activity records are not
+stored by Locus. Activities unavailable in the watch history cannot be included.
+
 Locus stores up to 73 timestamped observations of the two selected axis values in the watch's
 application storage. During active updates, observations outside the six-hour window are removed.
-No athlete observations are collected in the app's low-power or display-off path. Configuration
+No athlete observations are collected in the AMOLED low-power or display-off path. Solar/MIP
+watches retain the full chart and may collect observations during minute updates. Configuration
 preferences, such as selected metrics, units, colors, and time format, are stored on the device
 using Garmin application properties.
 

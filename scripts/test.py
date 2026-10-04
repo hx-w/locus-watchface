@@ -6,13 +6,15 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--device', choices=['fr265', 'fr265s', 'all'], default='all')
+devices = [p.attrib['id'] for p in ET.parse(ROOT/'manifest.xml').findall('.//{*}product')]
+parser.add_argument('--device', choices=devices+['all'], default='all')
 args = parser.parse_args()
 reports = []
-for device in (['fr265','fr265s'] if args.device == 'all' else [args.device]):
+for device in (devices if args.device == 'all' else [args.device]):
     build = subprocess.run([sys.executable,str(ROOT/'scripts/build.py'),'--device',device,'--test'],cwd=ROOT,capture_output=True,text=True)
     (ROOT/'build'/f'{device}-test-build.log').write_text(build.stdout+build.stderr)
     if build.returncode:

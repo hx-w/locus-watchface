@@ -5,10 +5,12 @@ import os
 import shutil
 import subprocess
 from pathlib import Path
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--device', choices=['fr265', 'fr265s'], default='fr265')
+devices = [p.attrib['id'] for p in ET.parse(ROOT/'manifest.xml').findall('.//{*}product')]
+parser.add_argument('--device', choices=devices, default='fr265')
 parser.add_argument('--test', action='store_true')
 parser.add_argument('--preview', action='store_true', help='Build an isolated simulator demo')
 parser.add_argument('--scenario', choices=['normal', 'missing', 'extreme', 'aod', 'loops'], default='normal')

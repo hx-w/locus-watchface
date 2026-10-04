@@ -28,8 +28,8 @@
   <string id="HeartRate">心率</string>
   <string id="Recovery">恢复时间</string>
   <string id="BodyBattery">身体电量</string>
-  <string id="WeeklyRun">本周跑步距离</string>
-  <string id="WeeklyBike">本周骑行距离</string>
+  <string id="MonthlyRun">本月跑步距离</string>
+  <string id="MonthlyBike">本月骑行距离</string>
   <string id="Steps">今日步数</string>
   <string id="DeviceBattery">设备电量</string>
   <string id="Stress">压力</string>

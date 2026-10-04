@@ -21,9 +21,11 @@ class ChartHistory {
             var saved = Application.Storage.getValue(HistoryPolicy.KEY);
             if (!(saved instanceof Dictionary)) { return; }
             var version = saved["version"];
-            if (!(version instanceof Number) || version != 1) { return; }
+            if (!(version instanceof Number) || (version != 1 && version != 2)) { return; }
             var x = saved["x"]; var y = saved["y"]; var rows = saved["points"];
             if (!(x instanceof Number) || !(y instanceof Number) || x < 1 || x >= Fields.COUNT || y < 1 || y >= Fields.COUNT || !(rows instanceof Array) || rows.size() > HistoryPolicy.MAX_POINTS) { return; }
+            // Older distance axes were weekly. Do not join them to monthly readings.
+            if (version == 1 && (x == 4 || x == 5 || y == 4 || y == 5)) { return; }
             var valid = [] as Array<Array<Numeric>>;
             var previous = -1;
             for (var i = 0; i < rows.size(); i += 1) {
@@ -59,7 +61,7 @@ class ChartHistory {
         }
         if (points.size() > HistoryPolicy.MAX_POINTS) { points = points.slice(points.size() - HistoryPolicy.MAX_POINTS, points.size()); }
         if (dirty) {
-            try { Application.Storage.setValue(HistoryPolicy.KEY, {"version" => 1, "x" => _xid, "y" => _yid, "points" => points}); } catch (e) { }
+            try { Application.Storage.setValue(HistoryPolicy.KEY, {"version" => 2, "x" => _xid, "y" => _yid, "points" => points}); } catch (e) { }
         }
         s.trail = points; s.stamp = stamp;
     }

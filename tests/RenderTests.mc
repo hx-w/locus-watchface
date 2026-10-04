@@ -20,7 +20,28 @@ module Fixtures {
 }
 
 (:test)
+function displayLifecycleAcrossScreens(logger as Test.Logger) as Boolean {
+    if (System has :getDisplayMode) {
+        Test.assert(DisplayPolicy.lowPower(System.DISPLAY_MODE_HIGH_POWER, true));
+        Test.assert(DisplayPolicy.lowPower(System.DISPLAY_MODE_LOW_POWER, false));
+        Test.assert(!DisplayPolicy.lowPower(System.DISPLAY_MODE_HIGH_POWER, false));
+    } else {
+        // Calling the AMOLED-only method on Solar/MIP would raise Symbol Not Found.
+        Test.assertEqual(DisplayPolicy.mode(), System.DISPLAY_MODE_HIGH_POWER);
+        Test.assert(!DisplayPolicy.lowPower(DisplayPolicy.mode(), true));
+    }
+    var width = System.getDeviceSettings().screenWidth;
+    var bitmap = Graphics.createBufferedBitmap({:width => width, :height => width});
+    var dc = (bitmap.get() as Graphics.BufferedBitmap).getDc();
+    var view = new LocusView();
+    view.onUpdate(dc); view.onEnterSleep(); view.onUpdate(dc);
+    view.onExitSleep(); view.onUpdate(dc);
+    return true;
+}
+
+(:test)
 function aodLuminanceUpperBound(logger as Test.Logger) as Boolean {
+    if (!(System has :getDisplayMode)) { return true; }
     var width = System.getDeviceSettings().screenWidth;
     var bitmap = Graphics.createBufferedBitmap({:width => 1, :height => 1});
     var dc = (bitmap.get() as Graphics.BufferedBitmap).getDc();

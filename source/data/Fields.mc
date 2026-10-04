@@ -9,7 +9,7 @@ module Fields {
     const LABELS = ["", "HR", "REST", "BODY", "RUN", "BIKE", "STEPS", "BATT", "STRESS", "SPO2", "RESP", "VO2 R", "VO2 B", "FLOORS", "ACTIVE"];
     function title(id as Number) as String {
         var names = [Rez.Strings.Hidden, Rez.Strings.HeartRate, Rez.Strings.Recovery, Rez.Strings.BodyBattery,
-            Rez.Strings.WeeklyRun, Rez.Strings.WeeklyBike, Rez.Strings.Steps, Rez.Strings.DeviceBattery,
+            Rez.Strings.MonthlyRun, Rez.Strings.MonthlyBike, Rez.Strings.Steps, Rez.Strings.DeviceBattery,
             Rez.Strings.Stress, Rez.Strings.PulseOx, Rez.Strings.Respiration, Rez.Strings.RunVo2,
             Rez.Strings.BikeVo2, Rez.Strings.Floors, Rez.Strings.Intensity];
         return WatchUi.loadResource(names[id]) as String;
@@ -17,7 +17,7 @@ module Fields {
     function type(id as Number) as Complications.Type {
         var types = [Complications.COMPLICATION_TYPE_INVALID, Complications.COMPLICATION_TYPE_HEART_RATE,
             Complications.COMPLICATION_TYPE_RECOVERY_TIME, Complications.COMPLICATION_TYPE_BODY_BATTERY,
-            Complications.COMPLICATION_TYPE_WEEKLY_RUN_DISTANCE, Complications.COMPLICATION_TYPE_WEEKLY_BIKE_DISTANCE,
+            Complications.COMPLICATION_TYPE_INVALID, Complications.COMPLICATION_TYPE_INVALID,
             Complications.COMPLICATION_TYPE_STEPS, Complications.COMPLICATION_TYPE_BATTERY,
             Complications.COMPLICATION_TYPE_STRESS, Complications.COMPLICATION_TYPE_PULSE_OX,
             Complications.COMPLICATION_TYPE_RESPIRATION_RATE, Complications.COMPLICATION_TYPE_VO2MAX_RUN,

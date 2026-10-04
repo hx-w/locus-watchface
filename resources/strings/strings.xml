@@ -28,8 +28,8 @@
   <string id="HeartRate">Heart rate</string>
   <string id="Recovery">Recovery time</string>
   <string id="BodyBattery">Body Battery</string>
-  <string id="WeeklyRun">Weekly run distance</string>
-  <string id="WeeklyBike">Weekly bike distance</string>
+  <string id="MonthlyRun">Run distance this month</string>
+  <string id="MonthlyBike">Bike distance this month</string>
   <string id="Steps">Steps today</string>
   <string id="DeviceBattery">Device battery</string>
   <string id="Stress">Stress</string>

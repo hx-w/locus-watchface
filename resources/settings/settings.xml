@@ -5,8 +5,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>
@@ -24,8 +24,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>
@@ -43,8 +43,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>
@@ -62,8 +62,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>
@@ -81,8 +81,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>
@@ -100,8 +100,8 @@
       <listEntry value="1">@Strings.HeartRate</listEntry>
       <listEntry value="2">@Strings.Recovery</listEntry>
       <listEntry value="3">@Strings.BodyBattery</listEntry>
-      <listEntry value="4">@Strings.WeeklyRun</listEntry>
-      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="4">@Strings.MonthlyRun</listEntry>
+      <listEntry value="5">@Strings.MonthlyBike</listEntry>
       <listEntry value="6">@Strings.Steps</listEntry>
       <listEntry value="7">@Strings.DeviceBattery</listEntry>
       <listEntry value="8">@Strings.Stress</listEntry>

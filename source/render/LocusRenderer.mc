@@ -25,15 +25,15 @@ class LocusRenderer {
     }
     private function time(dc as Graphics.Dc, cfg as LocusSettings, hour as Number, minute as Number) as Void {
         var hours = MetricFormat.hour(hour, cfg.is24); var minutes = minute.format("%02d");
-        var size = 88;
+        var size = 102;
         var f = canvas.font(size);
         var hw = dc.getTextWidthInPixels(hours, f) / canvas.scale;
         var mw = dc.getTextWidthInPixels(minutes, f) / canvas.scale;
         // Fix the colon to the screen center, independent of digit advances.
-        canvas.text(dc, 196 - hw / 2, 91, size, hours, 0xFFF3DD, hw + 1);
-        canvas.circle(dc, 208, 79, 3.5, Palette.INK);
-        canvas.circle(dc, 208, 101, 3.5, Palette.INK);
-        canvas.text(dc, 220 + mw / 2, 91, size, minutes, cfg.timeColor(), mw + 1);
+        canvas.text(dc, 194 - hw / 2, 90, size, hours, 0xFFF3DD, hw + 1);
+        canvas.circle(dc, 208, 77, 4, Palette.INK);
+        canvas.circle(dc, 208, 103, 4, Palette.INK);
+        canvas.text(dc, 222 + mw / 2, 90, size, minutes, cfg.timeColor(), mw + 1);
     }
     private function header(dc as Graphics.Dc, s as AthleteSnapshot, cfg as LocusSettings, date as Gregorian.Info) as Void {
         if (cfg.showDate || s.demo) {
@@ -41,7 +41,7 @@ class LocusRenderer {
             var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             var text = days[(date.day_of_week as Number) - 1] + " " + date.day.format("%02d") + " " + months[(date.month as Number) - 1];
             if (s.demo) { text = cfg.showDate ? "DEMO  THU 01 OCT" : "DEMO"; }
-            canvas.text(dc, 208, 38, s.demo ? 16 : 18, text, Palette.INK, 190);
+            canvas.text(dc, 208, 34, s.demo ? 20 : 24, text, Palette.INK, 216);
         }
     }
     private function battery(dc as Graphics.Dc, s as AthleteSnapshot, cfg as LocusSettings) as Void {
@@ -78,7 +78,7 @@ class LocusRenderer {
         if (xv != null && yv != null) { geometry.add([px, py, s.stamp]); }
         var topology = new TrailTopology(geometry);
         for (var face = 0; face < topology.loops.size(); face += 1) {
-            canvas.polygon(dc, topology.loops[face], tint(cfg.color(), 0.14));
+            canvas.polygon(dc, topology.loops[face], tint(cfg.color(), canvas.mip ? 0.30 : 0.14));
         }
         dashed(dc, 61, 207.5, 325, 207.5, Palette.TRACK);
         dashed(dc, 193, 142, 193, 281, Palette.TRACK);
@@ -148,7 +148,7 @@ class LocusRenderer {
         // Old observations echo the accent; recent observations approach the point color.
         var start = cfg.color();
         var finish = cfg.fields[0] == 1 ? Palette.HEART : cfg.color();
-        var fade = 0.40 + 0.60 * recent;
+        var fade = canvas.mip ? 0.65 + 0.35 * recent : 0.40 + 0.60 * recent;
         var red = Math.round((((start >> 16) & 255) * (1 - recent) + ((finish >> 16) & 255) * recent) * fade).toNumber();
         var green = Math.round((((start >> 8) & 255) * (1 - recent) + ((finish >> 8) & 255) * recent) * fade).toNumber();
         var blue = Math.round(((start & 255) * (1 - recent) + (finish & 255) * recent) * fade).toNumber();
@@ -223,11 +223,10 @@ class LocusRenderer {
     }
     private function footer(dc as Graphics.Dc, s as AthleteSnapshot, cfg as LocusSettings, slot as Number, x as Number) as Void {
         var id = cfg.fields[slot]; if (id == 0) { return; }
-        _icons.draw(canvas, dc, id, x, 321, cfg.color(), 30);
-        canvas.text(dc, x, 343, 15, Fields.LABELS[id], Palette.MUTED, 82);
+        _icons.draw(canvas, dc, id, x, 326, cfg.color(), 34);
         var value = Fields.format(id, s, cfg.miles);
         var unit = value.equals("--") ? "" : Fields.unit(id, cfg.miles);
-        if (unit.length() > 0) { canvas.valueUnit(dc, x, 361, value, unit, 23, 14, 72); }
-        else { canvas.text(dc, x, 361, 23, value, Palette.INK, 72); }
+        if (unit.length() > 0) { canvas.valueUnit(dc, x, 360, value, unit, 30, 16, 72); }
+        else { canvas.text(dc, x, 360, 30, value, Palette.INK, 72); }
     }
 }

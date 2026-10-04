@@ -17,14 +17,14 @@ class LocusView extends WatchUi.WatchFace {
         WatchFace.initialize();
         _settings = new LocusSettings(); _renderer = new LocusRenderer(); _snapshot = new AthleteSnapshot();
     }
-    function reload() as Void { _settings.reload(); _minute = -1; subscribe(); }
-    function onShow() as Void { _minute = -1; subscribe(); }
+    function reload() as Void { _settings.reload(); _minute = -1; MonthlyActivity.invalidate(); subscribe(); }
+    function onShow() as Void { _minute = -1; MonthlyActivity.invalidate(); subscribe(); }
     function onHide() as Void { Complications.unsubscribeFromAllUpdates(); }
     function onEnterSleep() as Void { _sleeping = true; WatchUi.requestUpdate(); }
     function onExitSleep() as Void { _sleeping = false; _minute = -1; WatchUi.requestUpdate(); }
     function changed(id as Complications.Id) as Void {
         _minute = -1;
-        if (!_sleeping && System.getDisplayMode() == System.DISPLAY_MODE_HIGH_POWER) { WatchUi.requestUpdate(); }
+        if (!_sleeping && DisplayPolicy.mode() == System.DISPLAY_MODE_HIGH_POWER) { WatchUi.requestUpdate(); }
     }
     private function subscribe() as Void {
         Complications.unsubscribeFromAllUpdates();
@@ -35,13 +35,14 @@ class LocusView extends WatchUi.WatchFace {
             if (id != 0 && seen.indexOf(id) == -1) { seen.add(id); }
         }
         for (var j = 0; j < seen.size(); j += 1) {
+            if (Fields.type(seen[j]) == Complications.COMPLICATION_TYPE_INVALID) { continue; }
             try { Complications.subscribeToUpdates(new Complications.Id(Fields.type(seen[j]))); } catch (e) { }
         }
     }
     function onUpdate(dc as Graphics.Dc) as Void {
-        var mode = System.getDisplayMode();
+        var mode = DisplayPolicy.mode();
         if (mode == System.DISPLAY_MODE_OFF) { dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK); dc.clear(); return; }
-        var low = _sleeping || mode == System.DISPLAY_MODE_LOW_POWER;
+        var low = DisplayPolicy.lowPower(mode, _sleeping);
         var stamp = (Time.now().value() / 60).toNumber();
         if (!low && stamp != _minute) {
             _snapshot = AthleteData.read(_settings);
@@ -54,5 +55,18 @@ class LocusView extends WatchUi.WatchFace {
         var clock = System.getClockTime();
         var date = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         _renderer.render(dc, _snapshot, _settings, _snapshot.demo ? 10 : clock.hour, _snapshot.demo ? 8 : clock.min, date, low || _snapshot.demoAod);
+    }
+}
+
+// MIP watches retain the full minute-updated chart while asleep. Their System module
+// has no getDisplayMode; AMOLED still returns before any athlete/history reads.
+module DisplayPolicy {
+    function amoled() as Boolean { return System has :getDisplayMode; }
+    function lowPower(mode as Number, sleeping as Boolean) as Boolean {
+        return amoled() && (sleeping || mode == System.DISPLAY_MODE_LOW_POWER);
+    }
+    function mode() as Number {
+        if (System has :getDisplayMode) { return System.getDisplayMode(); }
+        return System.DISPLAY_MODE_HIGH_POWER;
     }
 }

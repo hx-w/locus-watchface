@@ -1,6 +1,7 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
+import Toybox.System;
 
 // All layout coordinates use a 416px circle. Font measurements use the real Dc.
 module Palette {
@@ -12,6 +13,7 @@ module Palette {
 
 class Canvas {
     var scale as Float = 1.0;
+    var mip as Boolean = !(System has :getDisplayMode);
     var measureBounds as Boolean = false;
     var failures as Array<String> = [];
     private var _fonts as Dictionary<Number, Graphics.FontType> = {};

@@ -16,14 +16,19 @@ module AthleteData {
     (:live)
     function read(cfg as LocusSettings) as AthleteSnapshot {
         var s = new AthleteSnapshot();
+        if (cfg.fields.indexOf(4) != -1 || cfg.fields.indexOf(5) != -1) {
+            var monthly = MonthlyActivity.read();
+            s.values[4] = monthly.run; s.values[5] = monthly.bike;
+        }
         for (var i = 0; i < cfg.fields.size(); i += 1) {
             var id = cfg.fields[i];
-            if (id > 0 && s.values[id] == null) { s.values[id] = value(id); }
+            if (id > 0 && id != 4 && id != 5 && s.values[id] == null) { s.values[id] = value(id); }
         }
         s.values[7] = value(7); // Device battery remains independent of body battery.
         return s;
     }
     function value(id as Number) as Numeric? {
+        if (id == 4 || id == 5) { return null; }
         try {
             var c = Complications.getComplication(new Complications.Id(Fields.type(id)));
             var v = c.value;
