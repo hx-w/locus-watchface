@@ -1,0 +1,13 @@
+build/
+bin/
+private/
+.DS_Store
+.venv/
+__pycache__/
+*.der
+*.pem
+*.iq
+*.prg
+*.debug.xml
+.env
+.env.*

@@ -1,0 +1,20 @@
+{
+  "upstream": "https://github.com/tabler/tabler-icons",
+  "commit": "74929e50416e2b7c0abb8368cdc74bdcb2560ab6",
+  "license": "MIT",
+  "icons": [
+    "run",
+    "bike",
+    "shoe",
+    "hourglass",
+    "battery-3",
+    "activity-heartbeat",
+    "droplet",
+    "lungs",
+    "stairs-up",
+    "chart-bar",
+    "clock",
+    "filled/heart"
+  ],
+  "adaptation": "Original paths retained. Monochrome outlines and filled heart resize/tint for Garmin. Heart is flat coral red; no surface lighting, shadows or gradients."
+}

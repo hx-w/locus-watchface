@@ -1,0 +1,145 @@
+<settings>
+  <setting propertyKey="@Properties.Field1" title="@Strings.Field1Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Field2" title="@Strings.Field2Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Field3" title="@Strings.Field3Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Field4" title="@Strings.Field4Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Field5" title="@Strings.Field5Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Field6" title="@Strings.Field6Title">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Hidden</listEntry>
+      <listEntry value="1">@Strings.HeartRate</listEntry>
+      <listEntry value="2">@Strings.Recovery</listEntry>
+      <listEntry value="3">@Strings.BodyBattery</listEntry>
+      <listEntry value="4">@Strings.WeeklyRun</listEntry>
+      <listEntry value="5">@Strings.WeeklyBike</listEntry>
+      <listEntry value="6">@Strings.Steps</listEntry>
+      <listEntry value="7">@Strings.DeviceBattery</listEntry>
+      <listEntry value="8">@Strings.Stress</listEntry>
+      <listEntry value="9">@Strings.PulseOx</listEntry>
+      <listEntry value="10">@Strings.Respiration</listEntry>
+      <listEntry value="11">@Strings.RunVo2</listEntry>
+      <listEntry value="12">@Strings.BikeVo2</listEntry>
+      <listEntry value="13">@Strings.Floors</listEntry>
+      <listEntry value="14">@Strings.Intensity</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Accent" title="@Strings.AccentTitle">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.DefaultAccent</listEntry>
+      <listEntry value="1">@Strings.Ivory</listEntry>
+      <listEntry value="2">@Strings.Sage</listEntry>
+      <listEntry value="3">@Strings.Coral</listEntry>
+      <listEntry value="4">@Strings.Slate</listEntry>
+      <listEntry value="5">@Strings.Copper</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.ClockMode" title="@Strings.ClockMode">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.SystemClock</listEntry>
+      <listEntry value="1">@Strings.Clock24</listEntry>
+      <listEntry value="2">@Strings.Clock12</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.Units" title="@Strings.UnitsTitle">
+    <settingConfig type="list">
+      <listEntry value="0">@Strings.Metric</listEntry>
+      <listEntry value="1">@Strings.Imperial</listEntry>
+    </settingConfig>
+  </setting>
+  <setting propertyKey="@Properties.ShowDate" title="@Strings.ShowDate">
+    <settingConfig type="boolean" />
+  </setting>
+  <setting propertyKey="@Properties.AlwaysOn" title="@Strings.AlwaysOn">
+    <settingConfig type="boolean" />
+  </setting>
+</settings>

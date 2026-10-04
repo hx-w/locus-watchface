@@ -1,0 +1,15 @@
+<drawables>
+  <bitmap id="LauncherIcon" filename="icon.svg"/>
+  <bitmap id="IconRun" automaticPalette="false" filename="icons/run.svg"/>
+  <bitmap id="IconBike" automaticPalette="false" filename="icons/bike.svg"/>
+  <bitmap id="IconShoe" automaticPalette="false" filename="icons/shoe.svg"/>
+  <bitmap id="IconHourglass" automaticPalette="false" filename="icons/hourglass.svg"/>
+  <bitmap id="IconBattery3" automaticPalette="false" filename="icons/battery-3.svg"/>
+  <bitmap id="IconActivityHeartbeat" automaticPalette="false" filename="icons/activity-heartbeat.svg"/>
+  <bitmap id="IconDroplet" automaticPalette="false" filename="icons/droplet.svg"/>
+  <bitmap id="IconLungs" automaticPalette="false" filename="icons/lungs.svg"/>
+  <bitmap id="IconStairsUp" automaticPalette="false" filename="icons/stairs-up.svg"/>
+  <bitmap id="IconChartBar" automaticPalette="false" filename="icons/chart-bar.svg"/>
+  <bitmap id="IconClock" automaticPalette="false" filename="icons/clock.svg"/>
+  <bitmap id="IconHeartFilled" automaticPalette="false" filename="icons/heart-filled.svg"/>
+</drawables>
